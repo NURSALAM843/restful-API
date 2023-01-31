@@ -16,13 +16,13 @@ class PostContoller extends Controller
         // return response()->json(['data' => $posts]);
         // fungsinya sama tapi menggunakan resource
         //kalau hasil lebih dari 1 pakai collection
-        return PostDetailResource::collection($posts->loadMissing('writer:id,email,username'));
+        return PostDetailResource::collection($posts->loadMissing(['writer:id,email,username', 'comments:id,post_id,user_id,comments_content']));
     }
 
     public function show($id)
     {
         $post = Post::with('writer:id,email,username')->findOrFail($id);
-        return New PostDetailResource($post);
+        return New PostDetailResource($post->loadMissing(['writer:id,email,username', 'comments:id,post_id,user_id,comments_content']));
     }
 
     public function store(Request $request)
