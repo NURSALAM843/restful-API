@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostDetailResource;
 use App\Http\Resources\PostResource;
+use Illuminate\Support\Facades\Storage;
 
 class PostContoller extends Controller
 {
@@ -31,7 +32,15 @@ class PostContoller extends Controller
             'title' => 'required|max:255',
             'news_content' => 'required'
         ]);
+        $image = null;
+        if($request->file){
+            $fileName = $this->generateRandomString();
+            $extension = $request->file->extension();
+            $image = $fileName.'.'.$extension;
+            Storage::putFileAs('image', $request->file, $image);
+        }
 
+        $request['image'] = $image;
         $request['author'] = auth()->user()->id;
 
         $post = Post:: create($request->all());
@@ -60,5 +69,14 @@ class PostContoller extends Controller
         return response()->json($post);
     }
 
+    private function generateRandomString($length = 30) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
     
 }
