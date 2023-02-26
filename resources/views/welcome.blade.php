@@ -12,7 +12,7 @@
 
 <body>
     <div class="container text-center">
-        <h1>Wellcome Page Di Halaman Dashboard Mantap Juag gjhkdfksdfk ggfgdfgfgdfgd</h1>
+        <h1>Wellcome Page Di Halaman Dashboard</h1>
         <div class="container">
             <div class="card">
                 <x-input type="text" label="Nama Anda" />
