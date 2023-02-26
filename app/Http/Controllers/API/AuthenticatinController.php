@@ -26,7 +26,9 @@ class AuthenticatinController extends Controller
         ]);
        }
 
-       return $user->createToken('user login')->plainTextToken;
+       $data = $user->createToken('user login')->plainTextToken;
+
+       return response()->json(['access_key' => $data]);
     }
 
     public function logout(Request $request)
