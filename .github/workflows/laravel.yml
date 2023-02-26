@@ -27,11 +27,11 @@ jobs:
           php artisan key:generate
     - name: Directory Permissions
       run: chmod 755 -R storage bootstrap/cache
-    - name: Run laravel database migrations
-      env:
-        DB_CONNECTION: mysql
-        DB_DATABASE: restful_api
-      run: php artisan migrate
+#     - name: Run laravel database migrations
+#       env:
+#         DB_CONNECTION: mysql
+#         DB_DATABASE: restful_api
+#       run: php artisan migrate
     - name: Run unit tests via PHPUnit
       env:
         DB_CONNECTION: mysql
